@@ -74,18 +74,33 @@ class curso:
 
 #---------------------------Separa cursos----------------------------------
 df_cursos = pd.read_excel("Horario.xlsx","Cursos")
+list_secc = ["M","N","O","P","Q","R","S","T"]
+l_curso = []
 for columna in df_cursos:
     print("===============Curso: ",columna,"=======================")
     lista = df_cursos[columna].tolist()
     print("-------",len(lista))
-    l_clases = []
-    l_clase = []    
+    l_clases = []   
     for i in range(0,len(lista)-8,7):
         print("-----------Iteracion - Clase",i/7,"--------------")
-        nom = lista[i+6][0:lista[i+6].find(" ")+1]
-        c = clase(lista[i],lista[i+1],lista[i+2],lista[i+3],lista[i+4],lista[i+5][0:2],lista[i+5][6:8],nom)
-        print(c)
-        l_clases.append(c)
+        cls_cod = lista[i]
+        cls_nom = lista[i+1]
+        cls_sec = lista[i+2]
+        cls_tip = lista[i+3]
+        cls_dia = lista[i+4]
+        cls_hoi = lista[i+5][0:2]
+        cls_hof = lista[i+5][6:8]
+        cls_prf = lista[i+6][0:lista[i+6].find(" ")+1]
+
+        l_clsm = []
+        if lista[i+2] == "M":
+            cls_m = clase(cls_cod,cls_nom,cls_sec,cls_tip,cls_dia,cls_hoi,cls_hof,cls_prf)
+            #Lista de clases
+            l_clsm.append(cls_m)
+        crs_m = curso(cls_m[i] for i in len(l_clsm))     
+        
+    #Lista de cursos - 1 Curso : 1 Seccion
+
         print("------------------------------------------------")
         print(c.cod)
         print(c.sec)
